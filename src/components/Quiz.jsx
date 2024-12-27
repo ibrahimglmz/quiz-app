@@ -269,58 +269,73 @@ function Quiz() {
 
   const renderQuiz = () => {
     return (
-      <div className="quiz-container">
+      <div className="industrial-quiz-container">
         {renderMenuButton()}
         {showScore ? (
-          <div className="score-section">
-            <h2>{currentSetup}. Kilit Quiz Sonucu</h2>
-            <p>{questions.length} sorudan {score} tanesini doğru bildiniz!</p>
-            {score === questions.length ? (
-              <>
-                <p className="perfect-score">Tebrikler! Bu kilidi açtınız!</p>
-                <button 
-                  className="return-prison-button" 
-                  onClick={() => setGameState('prison')}
-                >
-                  Diğer Kilitlere Dön
-                </button>
-              </>
-            ) : (
-              <>
-                <p className="failed-score">Kilit açılamadı! Tekrar deneyin.</p>
-                <button 
-                  className="retry-button" 
-                  onClick={() => startQuiz(currentSetup)}
-                >
-                  Tekrar Dene
-                </button>
-              </>
-            )}
+          <div className="industrial-score-section">
+            <div className="score-content">
+              <h2>{currentSetup}. Kilit Quiz Sonucu</h2>
+              <div className="score-details">
+                <div className="score-circle">
+                  <span className="score-number">{score}</span>
+                  <span className="score-total">/{questions.length}</span>
+                </div>
+                {score === questions.length ? (
+                  <>
+                    <div className="success-message">
+                      <span className="success-icon">🔓</span>
+                      <p>Kilit Başarıyla Açıldı!</p>
+                    </div>
+                    <button 
+                      className="next-level-button" 
+                      onClick={() => setGameState('prison')}
+                    >
+                      <span>Diğer Kilitlere Dön</span>
+                      <span className="button-icon">→</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="fail-message">
+                      <span className="fail-icon">🔒</span>
+                      <p>Kilit Açılamadı!</p>
+                    </div>
+                    <button 
+                      className="retry-button" 
+                      onClick={() => startQuiz(currentSetup)}
+                    >
+                      <span>Tekrar Dene</span>
+                      <span className="button-icon">↺</span>
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         ) : (
-          <>
-            <div className="setup-info">
-              <h2>{currentSetup}. Kilit Quiz</h2>
+          <div className="industrial-panel">
+            <div className="panel-header">
+              <div className="question-number">SORU {currentQuestion + 1}/5</div>
             </div>
-            <div className="question-section">
-              <div className="question-count">
-                <span>Soru {currentQuestion + 1}</span>/{questions.length}
-              </div>
+            
+            <div className="question-display">
               <div className="question-text">
                 {questions[currentQuestion].questionText}
               </div>
             </div>
-            <div className="answer-section">
+
+            <div className="answers-panel">
               {questions[currentQuestion].answerOptions.map((answerOption, index) => (
                 <button 
                   key={index} 
+                  className="industrial-answer-button"
                   onClick={() => handleAnswerClick(answerOption.isCorrect)}
                 >
                   {answerOption.answerText}
                 </button>
               ))}
             </div>
-          </>
+          </div>
         )}
       </div>
     );

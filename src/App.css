@@ -389,98 +389,215 @@ button:hover {
 
 /* Yeni Quiz Tasarımı */
 .quiz-container {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.95));
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   padding: 20px;
-  border-radius: 10px;
   position: relative;
+}
+
+.quiz-content {
   max-width: 800px;
   margin: 0 auto;
-  clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
+  padding-top: 60px;
 }
 
-.question-header {
-  font-family: 'Black Ops One', cursive;
-  color: #fff;
-  font-size: 24px;
-  padding: 10px 20px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
-  border-left: 4px solid #00ff00;
-  margin-bottom: 20px;
+/* Quiz Header Styles */
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.question-display {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 30px;
-  margin: 20px 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.setup-badge {
+  background: #ff0000;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.question-progress {
+  flex-grow: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 20px;
   position: relative;
+  border-radius: 2px;
 }
 
-.question-display::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+.progress-bar {
   height: 100%;
-  background: linear-gradient(45deg, transparent 98%, #00ff00);
-  pointer-events: none;
+  background: #ff0000;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.question-counter {
+  position: absolute;
+  right: -40px;
+  top: -7px;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* Question Container Styles */
+.question-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.question-box {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border-left: 4px solid #ff0000;
 }
 
 .question-text {
-  color: #fff;
+  color: white;
   font-size: 20px;
   line-height: 1.5;
-  text-align: left;
-  padding: 10px;
+  margin: 0;
 }
 
-.answers-container {
+/* Answer Grid Styles */
+.answers-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
-  margin-top: 20px;
 }
 
 .answer-button {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-  padding: 15px 20px;
-  text-align: left;
-  font-size: 16px;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 98% 100%, 0 100%);
-}
-
-.answer-button::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 3px;
-  background: #00ff00;
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
 }
 
 .answer-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateX(5px);
+  background: rgba(255, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
 }
 
-.answer-button:hover::before {
-  transform: scaleY(1);
+.answer-letter {
+  background: rgba(255, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-right: 12px;
+  font-weight: bold;
 }
 
-/* Responsive tasarım için */
+.answer-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* Score Section Styles */
+.score-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.score-content {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  border: 2px solid #ff0000;
+  max-width: 500px;
+  width: 90%;
+}
+
+.score-circle {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #ff0000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  position: relative;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.score-number {
+  font-size: 48px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.score-total {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.success-message, .fail-message {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.success-message {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid #00ff00;
+}
+
+.fail-message {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff0000;
+}
+
+.success-icon, .fail-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.next-level-button, .retry-button {
+  background: linear-gradient(45deg, #800000, #ff0000);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.button-icon {
+  font-size: 20px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .quiz-container {
-    margin: 10px;
+  .answers-grid {
+    grid-template-columns: 1fr;
   }
 
   .question-text {
@@ -488,7 +605,7 @@ button:hover {
   }
 
   .answer-button {
-    font-size: 14px;
+    padding: 12px;
   }
 }
 
@@ -949,4 +1066,173 @@ button:hover {
 /* Quiz container'ı için padding ekleyelim ki menü butonu içerikle çakışmasın */
 .quiz-container, .mission-screen, .prison-container {
   padding-top: 80px;
+}
+
+.industrial-quiz-container {
+  min-height: 100vh;
+  background: #2c2c2c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.industrial-panel {
+  background: #1a1a1a;
+  width: 90%;
+  max-width: 900px;
+  border: 2px solid #333;
+  position: relative;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    0 100%
+  );
+}
+
+.panel-header {
+  background: #000;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #ff0000;
+}
+
+.question-number {
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.question-display {
+  background: #000;
+  padding: 30px;
+  margin: 20px 0;
+  border: 1px solid #333;
+  position: relative;
+}
+
+.question-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent 48%, #333 49%, #333 51%, transparent 52%);
+  background-size: 10px 10px;
+  opacity: 0.1;
+}
+
+.question-text {
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.5;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.answers-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.industrial-answer-button {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 15px 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+}
+
+.industrial-answer-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 0, 0, 0.1),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.industrial-answer-button:hover {
+  background: #2a2a2a;
+  border-color: #ff0000;
+}
+
+.industrial-answer-button:hover::before {
+  left: 100%;
+}
+
+/* Metal efekti için arka plan deseni */
+.industrial-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(45deg, 
+      transparent 48%,
+      rgba(255, 255, 255, 0.05) 49%,
+      rgba(255, 255, 255, 0.05) 51%,
+      transparent 52%
+    );
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+/* Vida efektleri */
+.industrial-panel::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #444;
+  border-radius: 50%;
+  top: 10px;
+  left: 10px;
+  box-shadow: 
+    calc(100% - 20px) 0 #444,
+    0 calc(100% - 20px) #444,
+    calc(100% - 20px) calc(100% - 20px) #444;
+}
+
+@media (max-width: 768px) {
+  .industrial-panel {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .question-text {
+    font-size: 16px;
+  }
+
+  .industrial-answer-button {
+    padding: 12px 15px;
+  }
 }
