@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://ibrahimglmz.github.io/quiz-app",
+  "dependencies": {
+    // ... mevcut dependencies
+  },
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
