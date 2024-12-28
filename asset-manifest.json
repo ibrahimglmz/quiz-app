@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/quiz-app/static/css/main.c55f6048.css",
+    "main.js": "/quiz-app/static/js/main.70f60a00.js",
+    "static/media/okan10.jpg": "/quiz-app/static/media/okan10.4f8fdb0c395f943e1068.jpg",
+    "static/media/arkaSes.mp3": "/quiz-app/static/media/arkaSes.02038136d86a5f51853a.mp3",
+    "static/media/bittiSes.mp3": "/quiz-app/static/media/bittiSes.9037c1143d47fe378af8.mp3",
+    "static/media/tutukla.mp3": "/quiz-app/static/media/tutukla.58f50d1f635abb4ac522.mp3",
+    "static/media/bitti.jpg": "/quiz-app/static/media/bitti.1e45e318661072401996.jpg",
+    "static/media/hapishane.jpeg": "/quiz-app/static/media/hapishane.152df539410a6cb11716.jpeg",
+    "static/media/kaybet.jpg": "/quiz-app/static/media/kaybet.c4f114e10de632866974.jpg",
+    "static/media/kelepce.png": "/quiz-app/static/media/kelepce.0bb8be9004c9f1213bf7.png",
+    "static/media/okan11.jpg": "/quiz-app/static/media/okan11.e16049ddbc3d46dfab61.jpg",
+    "static/media/okan13.jpg": "/quiz-app/static/media/okan13.eafd11d83f0a23031564.jpg",
+    "static/media/okan14.jpg": "/quiz-app/static/media/okan14.1eaa3e7fd6d5cdbb670e.jpg",
+    "static/media/okan16.jpg": "/quiz-app/static/media/okan16.9755d752649646e359a8.jpg",
+    "index.html": "/quiz-app/index.html",
+    "main.c55f6048.css.map": "/quiz-app/static/css/main.c55f6048.css.map",
+    "main.70f60a00.js.map": "/quiz-app/static/js/main.70f60a00.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c55f6048.css",
+    "static/js/main.70f60a00.js"
+  ]
+}
