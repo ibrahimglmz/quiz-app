@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import hapishaneBg from '../assets/hapishane.jpeg';
 import kelepcePng from '../assets/kelepce.png';
 import kaybetBg from '../assets/kaybet.jpg';
+import bittiImg from '../assets/bitti.jpg';
 import arkaSes from '../assets/arkaSes.mp3';
 import tutuklaSes from '../assets/tutukla.mp3';
+import bittiSes from '../assets/bittiSes.mp3';
 
 // Tema resimleri importları aynı kalacak
 import tema1 from '../tema/okan10.jpg';
@@ -28,6 +30,7 @@ function Quiz() {
   // Ses referansları için useRef kullanıyoruz
   const backgroundMusicRef = useRef(new Audio(arkaSes));
   const tutuklaRef = useRef(new Audio(tutuklaSes));
+  const bittiSesRef = useRef(new Audio(bittiSes));
 
   // Tüm soruları burada tanımlıyoruz
   const allSetups = {
@@ -207,12 +210,17 @@ function Quiz() {
   // Aktif setup'ın sorularını al
   const questions = allSetups[currentSetup];
 
-  // Tema değiştirme kodları aynı
+  // Tema resimleri array'i
   const temalar = [tema1, tema2, tema3, tema4, tema5, tema6];
 
   const arkaplanDegistir = () => {
     const rastgeleIndex = Math.floor(Math.random() * temalar.length);
-    document.body.style.background = `url(${temalar[rastgeleIndex]})`;
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${temalar[rastgeleIndex]})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundAttachment = 'fixed';
+    document.body.style.transition = 'background-image 0.5s ease-in-out';
   };
 
   useEffect(() => {
@@ -253,15 +261,22 @@ function Quiz() {
       setScore(score + 1);
     } else {
       setWrongCount(wrongCount + 1);
+      if (wrongCount + 1 >= 3) {
+        setShowScore(true);
+        handleFailure(); // Başarısız olunca handleFailure fonksiyonunu çağır
+        return;
+      }
     }
 
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
+      arkaplanDegistir();
     } else {
       setShowScore(true);
-      const quizSuccess = score + (isCorrect ? 1 : 0) === questions.length;
-      handleQuizComplete(quizSuccess);
+      if (score + (isCorrect ? 1 : 0) < questions.length) {
+        handleFailure(); // Skor yetersizse handleFailure fonksiyonunu çağır
+      }
     }
   };
 
@@ -403,7 +418,72 @@ function Quiz() {
     );
   };
 
+  // Tüm kilitlerin açılıp açılmadığını kontrol et
+  const checkAllLevelsCompleted = () => {
+    const allLevels = [1, 2, 3, 4];
+    const allCompleted = allLevels.every(level => completedLevels.includes(level));
+    
+    // Eğer tüm seviyeler tamamlandıysa ve ses daha önce çalınmadıysa
+    if (allCompleted) {
+      backgroundMusicRef.current.pause(); // Arka plan müziğini durdur
+      bittiSesRef.current.currentTime = 0; // Sesi başa sar
+      bittiSesRef.current.play(); // Bitiş sesini çal
+    }
+    
+    return allCompleted;
+  };
+
+  const handleLevelCompletion = (level) => {
+    // Tamamlanan seviyeyi ekle
+    setCompletedLevels(prev => [...prev, level]);
+    
+    // Bir sonraki seviyeyi aç
+    if (level < 4) { // 4 son seviye olduğu için kontrol ediyoruz
+      setUnlockedLevels(prev => [...prev, level + 1]);
+    }
+  };
+
   const renderPrisonScreen = () => {
+    if (checkAllLevelsCompleted()) {
+      return (
+        <div className="completion-screen"
+             style={{
+               position: 'fixed',
+               top: 0,
+               left: 0,
+               width: '100%',
+               height: '100vh',
+               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bittiImg})`,
+               backgroundSize: 'cover',
+               backgroundPosition: 'center',
+               backgroundRepeat: 'no-repeat',
+               display: 'flex',
+               flexDirection: 'column',
+               justifyContent: 'center',
+               alignItems: 'center',
+               color: 'white',
+               textAlign: 'center',
+               zIndex: 1000
+             }}>
+          <h1 className="completion-title">TEBRİKLER!</h1>
+          <p className="completion-text">Tüm kilitleri başarıyla açtın ve özgürlüğüne kavuştun!</p>
+          <button 
+            className="restart-button"
+            onClick={() => {
+              bittiSesRef.current.pause(); // Bitiş sesini durdur
+              setGameState('start');
+              setCompletedLevels([]);
+              setUnlockedLevels([1]);
+              setCurrentSetup(1);
+            }}
+          >
+            YENİDEN BAŞLA
+          </button>
+        </div>
+      );
+    }
+
+    // Normal prison screen
     return (
       <div className="prison-screen">
         <div className="mission-container">
@@ -424,7 +504,13 @@ function Quiz() {
               >
                 <div className="mission-content">
                   <span className="mission-number">{level}</span>
-                  <span className="mission-text">Kilit {level}</span>
+                  <span className="mission-text">
+                    {completedLevels.includes(level) 
+                      ? "Kilit Açıldı" 
+                      : unlockedLevels.includes(level) 
+                        ? "Kilidi Aç" 
+                        : "Kilitli"}
+                  </span>
                   {!unlockedLevels.includes(level) && <span className="lock-icon">🔒</span>}
                   {completedLevels.includes(level) && <span className="complete-icon">✓</span>}
                 </div>
@@ -434,6 +520,21 @@ function Quiz() {
         </div>
       </div>
     );
+  };
+
+  const handleFailure = () => {
+    // Ses efektini çal
+    tutuklaRef.current.play();
+    // Arka plan müziğini durdur
+    backgroundMusicRef.current.pause();
+    // 3 saniye sonra menüye dön
+    setTimeout(() => {
+      setGameState('prison');
+      setShowScore(false);
+      setCurrentQuestion(0);
+      setScore(0);
+      setWrongCount(0);
+    }, 3000);
   };
 
   const renderQuiz = () => {
@@ -455,15 +556,26 @@ function Quiz() {
             {score === questions.length ? (
               <div className="success-content">
                 <div className="success-message">
-                  <span className="success-icon">🔓</span>
-                  <p>Kilit Başarıyla Açıldı!</p>
+                  <div className="success-icon-container">
+                    <span className="success-icon">🔓</span>
+                  </div>
+                  <h2 className="success-title">Kilit {currentSetup} Başarıyla Açıldı!</h2>
+                  <p className="success-score">
+                    Tüm soruları doğru yanıtladın!
+                  </p>
                 </div>
                 <button 
                   className="next-level-button" 
-                  onClick={() => setGameState('prison')}
+                  onClick={() => {
+                    handleLevelCompletion(currentSetup);
+                    setGameState('prison');
+                  }}
                 >
-                  <span>Diğer Kilitlere Dön</span>
-                  <span className="button-icon">→</span>
+                  <div className="button-content">
+                    <span className="button-icon">🔒</span>
+                    <span className="button-text">Diğer Kilitlere Dön</span>
+                    <span className="button-arrow">→</span>
+                  </div>
                 </button>
               </div>
             ) : (
@@ -485,12 +597,6 @@ function Quiz() {
                   <p className="fail-message">
                     Kaçış başarısız oldu ve yakalandın!
                   </p>
-                  <button 
-                    className="retry-button"
-                    onClick={() => startQuiz(currentSetup)}
-                  >
-                    TEKRAR DENE
-                  </button>
                 </div>
               </div>
             )}
@@ -595,6 +701,15 @@ function Quiz() {
     // Component unmount olduğunda temizle
     return () => {
       document.body.style.backgroundImage = '';
+    };
+  }, []);
+
+  // Component unmount olduğunda sesleri temizle
+  useEffect(() => {
+    return () => {
+      backgroundMusicRef.current.pause();
+      tutuklaRef.current.pause();
+      bittiSesRef.current.pause();
     };
   }, []);
 
