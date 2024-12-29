@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import hapishaneBg from '../assets/hapishane.jpeg';
-import kelepcePng from '../assets/kelepce.png';
-import kaybetBg from '../assets/kaybet.jpg';
-import bittiImg from '../assets/bitti.jpg';
-import arkaSes from '../assets/arkaSes.mp3';
-import tutuklaSes from '../assets/tutukla.mp3';
-import bittiSes from '../assets/bittiSes.mp3';
 
-// Tema resimleri importları aynı kalacak
-import tema1 from '../tema/okan10.jpg';
-import tema2 from '../tema/okan11.jpg';
-import tema3 from '../tema/okan13.jpg';
-import tema4 from '../tema/okan14.jpg';
-import tema5 from '../assets/kaybet.jpg';
-import tema6 from '../tema/okan16.jpg';
+// Assets için yeni yollar
+const hapishaneBg = `${process.env.PUBLIC_URL}/assets/hapishane.jpeg`;
+const kelepcePng = `${process.env.PUBLIC_URL}/assets/kelepce.png`;
+const kaybetBg = `${process.env.PUBLIC_URL}/assets/kaybet.jpg`;
+const bittiImg = `${process.env.PUBLIC_URL}/assets/bitti.jpg`;
+const arkaSes = `${process.env.PUBLIC_URL}/assets/arkaSes.mp3`;
+const tutuklaSes = `${process.env.PUBLIC_URL}/assets/tutukla.mp3`;
+const bittiSes = `${process.env.PUBLIC_URL}/assets/bittiSes.mp3`;
+
+// Tema resimleri için yeni yollar
+const tema1 = `${process.env.PUBLIC_URL}/tema/okan10.jpg`;
+const tema2 = `${process.env.PUBLIC_URL}/tema/okan11.jpg`;
+const tema3 = `${process.env.PUBLIC_URL}/tema/okan13.jpg`;
+const tema4 = `${process.env.PUBLIC_URL}/tema/okan14.jpg`;
+const tema6 = `${process.env.PUBLIC_URL}/tema/okan16.jpg`;
 
 function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -211,7 +212,7 @@ function Quiz() {
   const questions = allSetups[currentSetup];
 
   // Tema resimleri array'i
-  const temalar = [tema1, tema2, tema3, tema4, tema5, tema6];
+  const temalar = [tema1, tema2, tema3, tema4, tema6];
 
   const arkaplanDegistir = () => {
     const rastgeleIndex = Math.floor(Math.random() * temalar.length);
@@ -365,9 +366,12 @@ function Quiz() {
   const renderStartScreen = () => {
     return (
       <div className="start-screen">
-        <button className="start-button" onClick={() => setGameState('mission')}>
-          OYUNA BAŞLA
-        </button>
+        <div className="start-content">
+          <h1 className="game-title">Kütle Ağırlık Kaçağı</h1>
+          <button className="start-button" onClick={() => setGameState('mission')}>
+            OYUNA BAŞLA
+          </button>
+        </div>
       </div>
     );
   };
@@ -404,7 +408,7 @@ function Quiz() {
                 </li>
                 <li>
                   <span className="icon">👮</span>
-                  Başarısız olursan Okan seni yakalayacak!
+                  Başarısız olursan Görevli  seni yakalayacak!
                 </li>
               </ul>
             </div>
@@ -711,6 +715,81 @@ function Quiz() {
       tutuklaRef.current.pause();
       bittiSesRef.current.pause();
     };
+  }, []);
+
+  // CSS stillerini ekleyin (eğer inline stil kullanıyorsanız)
+  const styles = `
+    .start-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .start-content {
+      text-align: center;
+    }
+
+    .game-title {
+      font-size: 3.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      margin-bottom: 3rem;
+      font-family: 'Arial', sans-serif;
+      animation: fadeInDown 1.2s ease-out;
+    }
+
+    .start-button {
+      padding: 1.2rem 2.5rem;
+      font-size: 1.5rem;
+      background-color: #e63946;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    .start-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+      background-color: #dc2f3c;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
+
+  // Stilleri head'e ekleyin
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = styles;
+    document.head.appendChild(styleSheet);
+    return () => styleSheet.remove();
   }, []);
 
   return (
