@@ -86,7 +86,7 @@ function Quiz() {
         ],
       },
       {
-        questionText: "Kütlen bir cismin boyutudur?",
+        questionText: "Kütle bir cismin boyutudur?",
         answerOptions: [
           { answerText: "Yanlış", isCorrect: true },
           { answerText: "Doğru", isCorrect: false },
