@@ -27,7 +27,7 @@ function Quiz() {
   const [wrongCount, setWrongCount] = useState(0);
   const [showPoliceBackground, setShowPoliceBackground] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
+
   // Ses referansları için useRef kullanıyoruz
   const backgroundMusicRef = useRef(new Audio(arkaSes));
   const tutuklaRef = useRef(new Audio(tutuklaSes));
@@ -37,174 +37,102 @@ function Quiz() {
   const allSetups = {
     1: [
       {
-        questionText: "Kütle Nedir ? ",
+        questionText: "Aşağıdaki cümlelerin hangisinde bir yazım yanlışı vardır?",
         answerOptions: [
-          { answerText: "Değişmeyen madde miktarıdır.", isCorrect: true },
-          { answerText: "Bir cisme uygulanan kütle çekim kuvvetidir.", isCorrect: false },
-          
+          { answerText: "Herkesin içinde böyle davranması hiç hoş değil.", isCorrect: false },
+          { answerText: "Akşamki yemekte bir çok tanıdık yüz gördüm.", isCorrect: true },
+          { answerText: "Bu konuyu biraz daha düşünmem gerekiyor.", isCorrect: false },
+          { answerText: "Sınıftaki hiçbir öğrenci soruyu çözemedi.", isCorrect: false },
         ],
       },
       {
-        questionText: "Ağırlık Nedir ? ",
+        questionText: "Aşağıdaki kelimelerden hangisinin yazımı doğrudur?",
         answerOptions: [
-          { answerText: "Değişmeyen madde miktarıdır.", isCorrect: false },
-          { answerText: "Bir cisme uygulanan kütle çekim kuvvetidir.", isCorrect: true },
-          
+          { answerText: "Traş", isCorrect: false },
+          { answerText: "Kirbit", isCorrect: false },
+          { answerText: "Antrenman", isCorrect: true },
+          { answerText: "Silahşör", isCorrect: false },
         ],
       },
       {
-        questionText: "Kütle ölçen alet nedir?",
+        questionText: "Aşağıdaki cümlelerin hangisinde \"da / de\"nin yazımıyla ilgili bir yanlışlık yapılmıştır?",
         answerOptions: [
-          { answerText: "Dinamometre", isCorrect: false },
-          { answerText: "Eşit kollu terazi", isCorrect: true },
-          { answerText: "Metre", isCorrect: false },
-          { answerText: "Barometre", isCorrect: false },
-        ],
-      },
-      {
-        questionText: "Ağırlığı ölçen alet nedir?",
-        answerOptions: [
-          { answerText: "Eşit Kollu terazi", isCorrect: false },
-          { answerText: "Dinamometre", isCorrect: true },
-        ],
-      },
-      {
-        questionText: "Kütlenin birimi nedir?",
-        answerOptions: [
-          { answerText: "Newton", isCorrect: false },
-          { answerText: "Kilogram", isCorrect: true },
+          { answerText: "Durumu ona da anlattım ama beni dinlemedi.", isCorrect: false },
+          { answerText: "Sende kalan kitaplarımı yarın getirir misin?", isCorrect: false },
+          { answerText: "Hiçte bile, söylediğin gibi bir şey olmadı.", isCorrect: true },
+          { answerText: "Gidip de gelmemek, gelip de görmemek var.", isCorrect: false },
         ],
       },
     ],
     2: [
       {
-        questionText: "Ağırlığın birimi nedir?",
+        questionText: "Aşağıdaki cümlelerin hangisinde \"ki\"nin yazımı yanlıştır?",
         answerOptions: [
-          { answerText: "Kilogram", isCorrect: false },
-          { answerText: "Newton", isCorrect: true },
-          { answerText: "Gram", isCorrect: false },
+          { answerText: "Duydum ki unutmuşsun gözlerimin rengini.", isCorrect: false },
+          { answerText: "Mademki gelmeyecektin, neden haber vermedin?", isCorrect: false },
+          { answerText: "Elindeki çantayı yavaşça yere bıraktı.", isCorrect: false },
+          { answerText: "Öyle bir çalış ki herkes seni takdir etsin.", isCorrect: true },
         ],
       },
       {
-        questionText: "Kütle bir cismin boyutudur?",
+        questionText: "Hangisinin yazımı yanlıştır?",
         answerOptions: [
-          { answerText: "Yanlış", isCorrect: true },
-          { answerText: "Doğru", isCorrect: false },
+          { answerText: "Art arda", isCorrect: false },
+          { answerText: "Yanı sıra", isCorrect: false },
+          { answerText: "Hoşçakal", isCorrect: true },
+          { answerText: "Hafta içi", isCorrect: false },
         ],
       },
       {
-        questionText: "Dinamometre ağırlığımızı ölçer?",
+        questionText: "Aşağıdaki birleşik fiillerden hangisi yanlış yazılmıştır?",
         answerOptions: [
-          { answerText: "Yanlış", isCorrect: false },
-          { answerText: "Doğru", isCorrect: true },
-        ],
-      },
-      {
-        questionText: "Kütle her yerde değişir?",
-        answerOptions: [
-          { answerText: "Doğru", isCorrect: false },
-          { answerText: "Yanlış", isCorrect: true },
-        ],
-      },
-      {
-        questionText: "Benim kütlem 20 newton?",
-        answerOptions: [
-          { answerText: "Doğru", isCorrect: false },
-          { answerText: "Yanlış", isCorrect: true },
+          { answerText: "Terketmek", isCorrect: true },
+          { answerText: "Ayırt etmek", isCorrect: false },
+          { answerText: "Fark etmek", isCorrect: false },
+          { answerText: "Arz etmek", isCorrect: false },
         ],
       },
     ],
     3: [
       {
-        questionText: "Dünyada 25 kg gelen bir insan Ay'da 15 KG gelir ?",
+        questionText: "Hangi kelimenin yazımı doğrudur?",
         answerOptions: [
-          { answerText: "Doğru ", isCorrect: false },
-          { answerText: "Yanlış ", isCorrect: true },
-          
+          { answerText: "Klavuz", isCorrect: false },
+          { answerText: "Orjinall", isCorrect: false },
+          { answerText: "İnisiyatif", isCorrect: true },
+          { answerText: "Şöför", isCorrect: false },
         ],
       },
       {
-        questionText: "Bir cismin hafif ya da ağır olma durumu kütlesi ile ilgilidir.",
+        questionText: "Aşağıdaki cümlelerin hangisinde sayıların yazımıyla ilgili bir yanlışlık yapılmıştır?",
         answerOptions: [
-          { answerText: "Doğru ", isCorrect: false },
-          { answerText: "Yanlış ", isCorrect: true },
-          
+          { answerText: "Sınavda ikinci olduğunu öğrenince çok sevindi.", isCorrect: false },
+          { answerText: "Bu iş için tam 5'er bin lira ödedik.", isCorrect: true },
+          { answerText: "On yedi yıl sonra doğduğu köye döndü.", isCorrect: false },
+          { answerText: "Saat 14.30'da buluşmak üzere sözleştiler.", isCorrect: false },
         ],
       },
-      {
-        questionText: "Manavlar ürünlerini dinamometre ile tartar.",
-        answerOptions: [
-          { answerText: "Doğru ", isCorrect: false },
-          { answerText: "Yanlış ", isCorrect: true },
-          
-        ],
-      },
-      {
-        questionText: "Dünyanın merkezinden uzaklaştıkça değişen değer  nedir ?",
-        answerOptions: [
-          { answerText: "Kütle ", isCorrect: false },
-          { answerText: "Ağırlık ", isCorrect: true },
-          
-        ],
-      },
-      {
-        questionText: "Kütle çekim kuvvetine ne denir?",
-        answerOptions: [
-          
-          { answerText: "Ağırlık ", isCorrect: true },
-          { answerText: "Kütle ", isCorrect: false },
-          
-        ],
-      },
-      
     ],
     4: [
       {
-        questionText: "Gezegenler arasında çekim kuvveti yoktur.",
+        questionText: "\"Laboratuvar\" kelimesinin doğru yazılışı aşağıdakilerden hangisidir?",
         answerOptions: [
-          
-          { answerText: "Doğru ", isCorrect: false },
-          { answerText: "Yanlış ", isCorrect: true },
-          
+          { answerText: "Labaratuvar", isCorrect: false },
+          { answerText: "Laboratuar", isCorrect: false },
+          { answerText: "Laboratuvar", isCorrect: true },
+          { answerText: "Labaratuar", isCorrect: false },
         ],
       },
       {
-        questionText: "Kütle deniz seviyesinden yukarılara çıkıldıkça artar.",
+        questionText: "Aşağıdakilerden hangisi bitişik yazılmalıdır?",
         answerOptions: [
-          { answerText: "Yanlış", isCorrect: true },
-          { answerText: "Doğru", isCorrect: false },
+          { answerText: "Terk etmek", isCorrect: false },
+          { answerText: "Baş ucu", isCorrect: false },
+          { answerText: "Vaz geçmek", isCorrect: false },
+          { answerText: "Kayıp olmak", isCorrect: true },
         ],
       },
-      {
-        questionText: "Ekvaktordan kutuplara doğru gidildikçe ağırlık azalır.",
-        answerOptions: [
-          
-          { answerText: "Doğru", isCorrect: false },
-          { answerText: "Yanlış ", isCorrect: true },
-          
-        ],
-      },
-      {
-        questionText: "Kutuplardan ekvatora doğru gidildikçe kütle artar.",
-        answerOptions: [
-          
-          { answerText: "Yanlış ", isCorrect: true },
-          { answerText: "Doğru", isCorrect: false },
-          
-        ],
-      },
-      {
-        questionText: "Dağdan deniz seviyesine inildikçe ağırlık artar.",
-        answerOptions: [
-          
-          { answerText: "Doğru ", isCorrect: true },
-          { answerText: "Yanlış ", isCorrect: false },
-          
-        ],
-      },
-
-      
-    ]
+    ],
   };
 
 
@@ -328,7 +256,7 @@ function Quiz() {
     setUnlockedLevels([1]);
     setCompletedLevels([]);
     setWrongCount(0);
-    
+
     // Sesleri resetle
     backgroundMusicRef.current.pause();
     backgroundMusicRef.current.currentTime = 0;
@@ -345,7 +273,7 @@ function Quiz() {
       setGameState('start'); // 'prison' yerine 'start' yapıyoruz
       setCurrentSetup(1);
       setWrongCount(0);
-      
+
       // Sesleri resetle
       backgroundMusicRef.current.pause();
       backgroundMusicRef.current.currentTime = 0;
@@ -367,7 +295,7 @@ function Quiz() {
     return (
       <div className="start-screen">
         <div className="start-content">
-          <h1 className="game-title">Kütle Ağırlık Kaçağı</h1>
+          <h1 className="game-title">Yazım Kuralları Bilgi Testi</h1>
           <button className="start-button" onClick={() => setGameState('mission')}>
             OYUNA BAŞLA
           </button>
@@ -386,7 +314,7 @@ function Quiz() {
               <h3>DURUM</h3>
               <p>Şu an hapishanede tutuklusun ve kaçman gerek!</p>
             </div>
-            
+
             <div className="mission-section">
               <h3>GÖREV</h3>
               <ul className="mission-list">
@@ -426,21 +354,21 @@ function Quiz() {
   const checkAllLevelsCompleted = () => {
     const allLevels = [1, 2, 3, 4];
     const allCompleted = allLevels.every(level => completedLevels.includes(level));
-    
+
     // Eğer tüm seviyeler tamamlandıysa ve ses daha önce çalınmadıysa
     if (allCompleted) {
       backgroundMusicRef.current.pause(); // Arka plan müziğini durdur
       bittiSesRef.current.currentTime = 0; // Sesi başa sar
       bittiSesRef.current.play(); // Bitiş sesini çal
     }
-    
+
     return allCompleted;
   };
 
   const handleLevelCompletion = (level) => {
     // Tamamlanan seviyeyi ekle
     setCompletedLevels(prev => [...prev, level]);
-    
+
     // Bir sonraki seviyeyi aç
     if (level < 4) { // 4 son seviye olduğu için kontrol ediyoruz
       setUnlockedLevels(prev => [...prev, level + 1]);
@@ -451,27 +379,27 @@ function Quiz() {
     if (checkAllLevelsCompleted()) {
       return (
         <div className="completion-screen"
-             style={{
-               position: 'fixed',
-               top: 0,
-               left: 0,
-               width: '100%',
-               height: '100vh',
-               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bittiImg})`,
-               backgroundSize: 'cover',
-               backgroundPosition: 'center',
-               backgroundRepeat: 'no-repeat',
-               display: 'flex',
-               flexDirection: 'column',
-               justifyContent: 'center',
-               alignItems: 'center',
-               color: 'white',
-               textAlign: 'center',
-               zIndex: 1000
-             }}>
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100vh',
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bittiImg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+            textAlign: 'center',
+            zIndex: 1000
+          }}>
           <h1 className="completion-title">TEBRİKLER!</h1>
           <p className="completion-text">Tüm kilitleri başarıyla açtın ve özgürlüğüne kavuştun!</p>
-          <button 
+          <button
             className="restart-button"
             onClick={() => {
               bittiSesRef.current.pause(); // Bitiş sesini durdur
@@ -496,9 +424,8 @@ function Quiz() {
             {[1, 2, 3, 4].map((level) => (
               <button
                 key={level}
-                className={`mission-button ${
-                  unlockedLevels.includes(level) ? 'unlocked' : 'locked'
-                } ${completedLevels.includes(level) ? 'completed' : ''}`}
+                className={`mission-button ${unlockedLevels.includes(level) ? 'unlocked' : 'locked'
+                  } ${completedLevels.includes(level) ? 'completed' : ''}`}
                 onClick={() => {
                   if (unlockedLevels.includes(level)) {
                     startQuiz(level);
@@ -509,10 +436,10 @@ function Quiz() {
                 <div className="mission-content">
                   <span className="mission-number">{level}</span>
                   <span className="mission-text">
-                    {completedLevels.includes(level) 
-                      ? "Kilit Açıldı" 
-                      : unlockedLevels.includes(level) 
-                        ? "Kilidi Aç" 
+                    {completedLevels.includes(level)
+                      ? "Kilit Açıldı"
+                      : unlockedLevels.includes(level)
+                        ? "Kilidi Aç"
                         : "Kilitli"}
                   </span>
                   {!unlockedLevels.includes(level) && <span className="lock-icon">🔒</span>}
@@ -545,7 +472,7 @@ function Quiz() {
     return (
       <div className="quiz-container">
         {renderMenuButton()}
-        
+
         <div className="wrong-attempts">
           {[...Array(wrongCount)].map((_, index) => (
             <div key={index} className="wrong-attempt">
@@ -568,8 +495,8 @@ function Quiz() {
                     Tüm soruları doğru yanıtladın!
                   </p>
                 </div>
-                <button 
-                  className="next-level-button" 
+                <button
+                  className="next-level-button"
                   onClick={() => {
                     handleLevelCompletion(currentSetup);
                     setGameState('prison');
@@ -583,13 +510,13 @@ function Quiz() {
                 </button>
               </div>
             ) : (
-              <div className="fail-screen" 
-                   style={{
-                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${kaybetBg})`,
-                     backgroundSize: 'cover',
-                     backgroundPosition: 'center',
-                     backgroundRepeat: 'no-repeat'
-                   }}>
+              <div className="fail-screen"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${kaybetBg})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}>
                 <div className="handcuffs-animation">
                   <img src={kelepcePng} alt="Kelepçe" className="handcuffs-image" />
                 </div>
@@ -608,12 +535,12 @@ function Quiz() {
         ) : (
           <div className="question-container">
             <div className="progress-bar">
-              <div 
-                className="progress" 
+              <div
+                className="progress"
                 style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
               ></div>
             </div>
-            
+
             <div className="question-header">
               <span className="question-number">SORU {currentQuestion + 1}/{questions.length}</span>
             </div>
@@ -648,15 +575,15 @@ function Quiz() {
     return (
       <div className="image-gallery">
         <div className="image-container">
-          <img 
-            src={temaImages[currentImageIndex].src} 
+          <img
+            src={temaImages[currentImageIndex].src}
             alt={temaImages[currentImageIndex].title}
             className="fullscreen-image"
           />
           <div className="image-controls">
-            <button 
+            <button
               className="gallery-button"
-              onClick={() => setCurrentImageIndex(prev => 
+              onClick={() => setCurrentImageIndex(prev =>
                 prev === 0 ? temaImages.length - 1 : prev - 1
               )}
             >
@@ -665,9 +592,9 @@ function Quiz() {
             <span className="image-counter">
               {currentImageIndex + 1} / {temaImages.length}
             </span>
-            <button 
+            <button
               className="gallery-button"
-              onClick={() => setCurrentImageIndex(prev => 
+              onClick={() => setCurrentImageIndex(prev =>
                 prev === temaImages.length - 1 ? 0 : prev + 1
               )}
             >
@@ -701,7 +628,7 @@ function Quiz() {
     document.body.style.backgroundPosition = 'center';
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundAttachment = 'fixed';
-    
+
     // Component unmount olduğunda temizle
     return () => {
       document.body.style.backgroundImage = '';
