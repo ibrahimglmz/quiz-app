@@ -98,7 +98,7 @@ function Quiz() {
         questionText: "Hangi kelimenin yazımı doğrudur?",
         answerOptions: [
           { answerText: "Klavuz", isCorrect: false },
-          { answerText: "Orjinall", isCorrect: false },
+          { answerText: "Orjinal", isCorrect: false },
           { answerText: "İnisiyatif", isCorrect: true },
           { answerText: "Şöför", isCorrect: false },
         ],
