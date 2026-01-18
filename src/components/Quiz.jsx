@@ -338,7 +338,22 @@ function Quiz() {
                   <span className="icon">👮</span>
                   Başarısız olursan Görevli  seni yakalayacak!
                 </li>
+                <li>
+                  <span className="icon">🔑</span>
+                  Her kilidi açtığında gizli şifrenin bir parçasını öğreneceksin
+                </li>
               </ul>
+            </div>
+
+            <div className="secret-words-container">
+              <h3>GİZLİ ŞİFRE</h3>
+              <div className="words-grid">
+                {[1, 2, 3, 4].map(level => (
+                  <div key={level} className={`word-slot ${completedLevels.includes(level) ? 'revealed' : 'locked-word'}`}>
+                    {completedLevels.includes(level) ? SECRET_WORDS[level] : "?"}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <button className="start-mission-button" onClick={() => setGameState('prison')}>
