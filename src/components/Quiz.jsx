@@ -350,6 +350,8 @@ function Quiz() {
     );
   };
 
+  const SECRET_WORDS = { 1: "Dil", 2: "Lerin", 3: "Efen", 4: "Disi" };
+
   // Tüm kilitlerin açılıp açılmadığını kontrol et
   const checkAllLevelsCompleted = () => {
     const allLevels = [1, 2, 3, 4];
@@ -397,8 +399,14 @@ function Quiz() {
             textAlign: 'center',
             zIndex: 1000
           }}>
-          <h1 className="completion-title">TEBRİKLER!</h1>
-          <p className="completion-text">Tüm kilitleri başarıyla açtın ve özgürlüğüne kavuştun!</p>
+          <div className="crown-container">
+            <span className="crown-icon">👑</span>
+          </div>
+          <h1 className="completion-title">DİLLERİN EFENDİSİ</h1>
+          <p className="completion-text">Tebrikler! Tüm kilitleri açtın ve özgürlüğüne kavuştun!</p>
+          <div className="final-words-display">
+            {Object.values(SECRET_WORDS).join(" - ")}
+          </div>
           <button
             className="restart-button"
             onClick={() => {
@@ -419,6 +427,17 @@ function Quiz() {
     return (
       <div className="prison-screen">
         <div className="mission-container">
+          <div className="secret-words-container">
+            <h3>GİZLİ ŞİFRE</h3>
+            <div className="words-grid">
+              {[1, 2, 3, 4].map(level => (
+                <div key={level} className={`word-slot ${completedLevels.includes(level) ? 'revealed' : 'locked-word'}`}>
+                  {completedLevels.includes(level) ? SECRET_WORDS[level] : "?"}
+                </div>
+              ))}
+            </div>
+          </div>
+
           <h2>KİLİTLER</h2>
           <div className="mission-buttons">
             {[1, 2, 3, 4].map((level) => (
@@ -491,6 +510,10 @@ function Quiz() {
                     <span className="success-icon">🔓</span>
                   </div>
                   <h2 className="success-title">Kilit {currentSetup} Başarıyla Açıldı!</h2>
+                  <div className="unlocked-word-reveal">
+                    <p>Gizli Kelime Parçası Açıldı:</p>
+                    <span className="revealed-word">{SECRET_WORDS[currentSetup]}</span>
+                  </div>
                   <p className="success-score">
                     Tüm soruları doğru yanıtladın!
                   </p>
@@ -708,6 +731,109 @@ function Quiz() {
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    .secret-words-container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .secret-words-container h3 {
+      color: #ffd700;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .words-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .word-slot {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 15px;
+      border-radius: 8px;
+      min-width: 80px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .word-slot.revealed {
+      background: rgba(46, 204, 113, 0.2);
+      border-color: #2ecc71;
+      color: #2ecc71;
+      text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .word-slot.locked-word {
+      color: rgba(255, 255, 255, 0.3);
+      font-family: monospace;
+    }
+
+    .unlocked-word-reveal {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    .unlocked-word-reveal p {
+      color: #ffd700;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .revealed-word {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .crown-container {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .final-words-display {
+      font-size: 1.5rem;
+      color: #ffd700;
+      margin: 20px 0;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
   `;
 
